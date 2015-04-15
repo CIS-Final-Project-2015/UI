@@ -56,6 +56,10 @@ void Game_Main()
     {
         while(Window.pollEvent(event))
         {
+            if(event.type == sf::Event::Closed)
+            {
+                Window.close();
+            }
             if(event.type == sf::Event::KeyPressed)
             {
                 if (event.key.code == sf::Keyboard::I)
