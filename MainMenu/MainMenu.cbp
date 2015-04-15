@@ -45,7 +45,12 @@
 		<Linker>
 			<Add directory="../../../../SFML/SFML-2.2/lib" />
 		</Linker>
+		<Unit filename="AnimatedSprite.cpp" />
+		<Unit filename="AnimatedSprite.hpp" />
+		<Unit filename="Animation.cpp" />
+		<Unit filename="Animation.hpp" />
 		<Unit filename="Main_Game.cpp" />
+		<Unit filename="Main_Game.hpp" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
