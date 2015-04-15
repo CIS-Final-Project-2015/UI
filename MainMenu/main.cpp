@@ -1,6 +1,30 @@
 #include <SFML/Graphics.hpp>
 #include <unistd.h>
 #include <iostream>
+#include "Main_Game.hpp"
+/*struct screens
+{
+
+    sf::Text text[4];
+    sf::RectangleShape shapes[1];
+    static int i = 0;
+    void addText(sf::Text newText)
+    {
+        text[i] = newText;
+    }
+    void addRect(sf::RectangleShape shape)
+    {
+        shapes[0] = shape;
+    }
+    void draw(sf::RenderWindow window)
+    {
+        for(int i = 0; i < 4; i++)
+        {
+            window.draw(text[i]);
+        }
+        window.draw(RectangleShape[0]);
+    }
+};*/
 
 int main()
 {
@@ -54,7 +78,8 @@ int main()
             switch(pos)
             {
                 case 0:
-                    std::cout << "New Game";
+                    window.close();
+                    Game_Main();
                     break;
                 case 1:
                     std::cout << "Load Game";
@@ -69,17 +94,7 @@ int main()
                     std::cout << "ERROR";
             }
 
-        }/*
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-        {
-            int i = 0;
-            mPos = sf::Mouse::getPosition(window);
-            if (mPos[0] >= 0 && mPos[0] <= 500 && mPos[1] >= 0 && mPos[1] <= 500)
-            {
-                window.close();
-            }
-        }*/
-
+        }
         window.clear();
         window.draw(select);
         window.draw(newGame);
@@ -89,3 +104,4 @@ int main()
         window.display();
     }
 }
+
