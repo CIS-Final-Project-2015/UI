@@ -2,34 +2,14 @@
 #include <unistd.h>
 #include <iostream>
 #include "Main_Game.hpp"
-/*struct screens
-{
 
-    sf::Text text[4];
-    sf::RectangleShape shapes[1];
-    static int i = 0;
-    void addText(sf::Text newText)
-    {
-        text[i] = newText;
-    }
-    void addRect(sf::RectangleShape shape)
-    {
-        shapes[0] = shape;
-    }
-    void draw(sf::RenderWindow window)
-    {
-        for(int i = 0; i < 4; i++)
-        {
-            window.draw(text[i]);
-        }
-        window.draw(RectangleShape[0]);
-    }
-};*/
+void Settings_Menu();
 
 int main()
 {
     unsigned int pos = 0;
     sf::RenderWindow window(sf::VideoMode(600,600), "SFML Works");
+    window.setFramerateLimit(60);
     sf::Font font;
     sf::Text newGame("New Game", font, 30);
     sf::Text loadGame("Load Game", font, 30);
@@ -85,7 +65,7 @@ int main()
                     std::cout << "Load Game";
                     break;
                 case 2:
-                    std::cout << "Settings";
+                    Settings_Menu();
                     break;
                 case 3:
                     window.close();
@@ -101,6 +81,32 @@ int main()
         window.draw(loadGame);
         window.draw(settings);
         window.draw(quit);
+        window.display();
+    }
+}
+void Settings_Menu()
+{
+    sf::RenderWindow window(sf::VideoMode(600,600), "Settings");
+    sf::Font font;
+    sf::Text text("NO SETTINGS ENJOY OUR GAME THE WAY WE MADE IT!!!", font, 30);
+    text.setPosition(0,300);
+    if (!font.loadFromFile("/usr/share/fonts/truetype/dustin/progenisis.ttf"))
+    {
+        window.close();
+        std::cout << "ERROR loading game font" << std::endl;
+    }
+    while (window.isOpen())
+    {
+        sf::Event event;
+        if (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+            {
+                window.close();
+            }
+        }
+        window.clear();
+        window.draw(text);
         window.display();
     }
 }

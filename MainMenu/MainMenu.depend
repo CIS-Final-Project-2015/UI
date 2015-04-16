@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1429088844 source:/home/bmccurry/Dropbox/tech/RPG/UI/MainMenu/main.cpp
+1429178109 source:/home/bmccurry/Dropbox/tech/RPG/UI/MainMenu/main.cpp
 	<SFML/Graphics.hpp>
 	<unistd.h>
 	<iostream>
@@ -374,7 +374,7 @@
 1429086122 source:/home/bmccurry/Dropbox/tech/RPG/UI/MainMenu/Animation.cpp
 	"Animation.hpp"
 
-1429088798 source:/home/bmccurry/Dropbox/tech/RPG/UI/MainMenu/Main_Game.cpp
+1429176352 source:/home/bmccurry/Dropbox/tech/RPG/UI/MainMenu/Main_Game.cpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	<unistd.h>
@@ -390,4 +390,6 @@
 	"Animation.hpp"
 
 1429088293 /home/bmccurry/Dropbox/tech/RPG/UI/MainMenu/Main_Game.hpp
+
+1429176825 source:/home/bmccurry/Dropbox/tech/RPG/UI/MainMenu/Settings.cpp
 

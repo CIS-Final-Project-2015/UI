@@ -25,13 +25,14 @@ void Game_Main()
     // create the window
     sf::RenderWindow Window(sf::VideoMode(600, 600), "My window");
 
+    Window.setFramerateLimit(600);
+
     if (!pPlayer.loadFromFile("snfer.png"))
     std::cout << "error" << std::endl;
     sf::Texture myWorld;
     myWorld.loadFromFile("world.jpg");
     sf::Sprite mySprite3(myWorld);
-    mySprite3.setPosition(0,0);
-    sf::Texture myTexture;
+    mySprite3.setPosition(0,0);sf::Texture myTexture;
     sf::Texture myTexture2;
     sf::Texture warrior;
 
@@ -101,7 +102,7 @@ void Game_Main()
                     Window.draw(mySprite3);
                     Window.draw(sprite);
                     Window.draw(mySprite2);
-                    Window.draw(mySprite);
+                    //Window.draw(mySprite);
                     Window.display();
                     Window.clear();
                 }
