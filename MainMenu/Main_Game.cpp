@@ -20,37 +20,31 @@ void Game_Main()
     int b = 1;
     sf::Vector2i source(1, Down);
     int invmenu = 0;
-    int slide = 400;
-    int slide2 = 630;
     // create the window
     sf::RenderWindow Window(sf::VideoMode(600, 600), "My window");
 
-    Window.setFramerateLimit(600);
+    Window.setFramerateLimit(401);
 
-    if (!pPlayer.loadFromFile("snfer.png"))
-    std::cout << "error" << std::endl;
+    if (!pPlayer.loadFromFile("player.png")){
+        std::cout << "error" << std::endl;
+    }
+    sf::Sprite player(pPlayer);
+    player.setPosition(0,0);
+
     sf::Texture myWorld;
     myWorld.loadFromFile("world.jpg");
-    sf::Sprite mySprite3(myWorld);
-    mySprite3.setPosition(0,0);sf::Texture myTexture;
-    sf::Texture myTexture2;
-    sf::Texture warrior;
+    sf::Sprite world(myWorld);
+    world.setPosition(0,0);
 
-    myTexture.loadFromFile("wood.jpg");
-    myTexture2.loadFromFile("wood2.jpg");
-    sf::Sprite sprite(pPlayer);
-
-    sprite.setPosition(0,0);
-    sf::Sprite mySprite(myTexture);
-    sf::Sprite mySprite2(myTexture2);
-    mySprite.setPosition(1, 400);
-    mySprite2.setPosition(430,0);
-    mySprite2.scale(4,4);
-
-    sf::Texture sword;
-    sword.loadFromFile("ongar.jpg");
-    sf::Sprite sward(sword);
-    sward.setPosition(120,30);
+    sf::Texture inventory1;
+    sf::Texture inventory2;
+    inventory1.loadFromFile("wood.jpg");
+    inventory2.loadFromFile("wood2.jpg");
+    sf::Sprite inventorySprite1(inventory1);
+    sf::Sprite inventorySprite2(inventory2);
+    inventorySprite1.setPosition(1, 400);
+    inventorySprite2.setPosition(430,0);
+    inventorySprite2.scale(4,4);
 
     sf::Event event;
     while(Window.isOpen())
@@ -67,42 +61,26 @@ void Game_Main()
                 {
                     if (invmenu == 0)
                     {
-                        while (slide !=  600)
-                        {
-                            slide = slide + 1;
-                            mySprite.setPosition(1, slide);
-                        }
-                        while (slide2 !=  800)
-                        {
-                            slide2++;
-                            mySprite2.setPosition(slide2, 0);
-                        }
+                        inventorySprite2.setPosition(800, 0);
+                        inventorySprite1.setPosition(1, 600);
                         invmenu = 1;
-                        Window.draw(mySprite3);
-                        Window.draw(sprite);
-                        Window.draw(mySprite2);
-                        Window.draw(mySprite);
+                        Window.draw(world);
+                        Window.draw(player);
+                        Window.draw(inventorySprite2);
+                        Window.draw(inventorySprite1);
                         Window.display();
                         Window.clear();
                     }
                     else if (invmenu == 1)
                     {
-                        while (slide !=  400)
-                        {
-                            slide = slide- 1;
-                            mySprite.setPosition(1, slide);
-                        }
-                        while (slide2 !=  430)
-                        {
-                            slide2--;
-                            mySprite2.setPosition(slide2, 0);
-                        }
+                        inventorySprite1.setPosition(1, 400);
+                        inventorySprite2.setPosition(430, 0);
                         invmenu = 0;
                     }
-                    Window.draw(mySprite3);
-                    Window.draw(sprite);
-                    Window.draw(mySprite2);
-                    //Window.draw(mySprite);
+                    Window.draw(world);
+                    Window.draw(player);
+                    Window.draw(inventorySprite2);
+                    Window.draw(inventorySprite1);
                     Window.display();
                     Window.clear();
                 }
@@ -116,18 +94,17 @@ void Game_Main()
                 int stopper = 0;
                 while (stopper < 100)
                 {
-                    sprite.move(-1,0);
+                    player.move(-1,0);
                     if (stopper % 20 == 0)
                         source.x++;
                     if(source.x * 32 >= pPlayer.getSize().x)
                         source.x = 0;
 
-                    sprite.setTextureRect(sf::IntRect(source.x *32, source.y * 32, 32, 32));
-                    Window.draw(mySprite3);
-                    Window.draw(sprite);
-                    Window.draw(mySprite2);
-                    Window.draw(mySprite);
-                    Window.draw(sward);
+                    player.setTextureRect(sf::IntRect(source.x *32, source.y * 32, 32, 32));
+                    Window.draw(world);
+                    Window.draw(player);
+                    Window.draw(inventorySprite2);
+                    Window.draw(inventorySprite1);
                     Window.display();
                     Window.clear();
                     stopper++;
@@ -139,18 +116,17 @@ void Game_Main()
                 int stopper = 0;
                 while (stopper < 100)
                 {
-                    sprite.move(1,0);
+                    player.move(1,0);
                     if (stopper % 20 == 0)
                         source.x++;
                     if(source.x * 32 >= pPlayer.getSize().x)
                         source.x = 0;
 
-                    sprite.setTextureRect(sf::IntRect(source.x *32, source.y * 32, 32, 32));
-                    Window.draw(mySprite3);
-                    Window.draw(sprite);
-                    Window.draw(mySprite2);
-                    Window.draw(mySprite);
-                    Window.draw(sward);
+                    player.setTextureRect(sf::IntRect(source.x *32, source.y * 32, 32, 32));
+                    Window.draw(world);
+                    Window.draw(player);
+                    Window.draw(inventorySprite2);
+                    Window.draw(inventorySprite1);
                     Window.display();
                     Window.clear();
                     stopper++;
@@ -162,18 +138,17 @@ void Game_Main()
                 int stopper = 0;
                 while (stopper < 100)
                 {
-                    sprite.move(0,-1);
+                    player.move(0,-1);
                     if (stopper % 20 == 0)
                         source.x++;
                     if(source.x * 32 >= pPlayer.getSize().x)
                         source.x = 0;
 
-                    sprite.setTextureRect(sf::IntRect(source.x *32, source.y * 32, 32, 32));
-                    Window.draw(mySprite3);
-                    Window.draw(sprite);
-                    Window.draw(mySprite2);
-                    Window.draw(mySprite);
-                    Window.draw(sward);
+                    player.setTextureRect(sf::IntRect(source.x *32, source.y * 32, 32, 32));
+                    Window.draw(world);
+                    Window.draw(player);
+                    Window.draw(inventorySprite2);
+                    Window.draw(inventorySprite1);
                     Window.display();
                     Window.clear();
                     stopper++;
@@ -185,42 +160,37 @@ void Game_Main()
                 int stopper = 0;
                 while (stopper < 100)
                 {
-                    sprite.move(0,1);
+                    player.move(0,1);
                     if (stopper % 20 == 0)
                         source.x++;
                     if(source.x * 32 >= pPlayer.getSize().x)
                         source.x = 0;
 
-                    sprite.setTextureRect(sf::IntRect(source.x *32, source.y * 32, 32, 32));
-                    Window.draw(mySprite3);
-                    Window.draw(sprite);
-                    Window.draw(mySprite2);
-                    Window.draw(mySprite);
-                    Window.draw(sward);
+                    player.setTextureRect(sf::IntRect(source.x *32, source.y * 32, 32, 32));
+                    Window.draw(world);
+                    Window.draw(player);
+                    Window.draw(inventorySprite2);
+                    Window.draw(inventorySprite1);
                     Window.display();
                     Window.clear();
                     stopper++;
                 }
             }
         }
-        if (sprite.getGlobalBounds().intersects(sward.getGlobalBounds()))
-        {
-            sward.setPosition(gridx,gridy);
-            gridx = gridx + 60;
-            if (gridx == 430)
-            {
-                gridx = 10;
-                gridy = gridy + 60;
-            }
-        }
-        Window.draw(mySprite3);
-        Window.draw(sprite);
-        Window.draw(mySprite2);
-        Window.draw(mySprite);
-        if (invmenu == 0)
-        {
-            Window.draw(sward);
-        }
+ //       if (sprite.getGlobalBounds().intersects(sward.getGlobalBounds()))
+ //       {
+ //           sward.setPosition(gridx,gridy);
+ //           gridx = gridx + 60;
+ //           if (gridx == 430)
+ //           {
+ //               gridx = 10;
+ //               gridy = gridy + 60;
+ //           }
+ //       }
+        Window.draw(world);
+        Window.draw(player);
+        Window.draw(inventorySprite2);
+        Window.draw(inventorySprite1);
         Window.display();
         Window.clear();
     }
