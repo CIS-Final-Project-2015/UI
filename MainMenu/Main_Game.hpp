@@ -1,1 +1,1 @@
-void Game_Main();
+int Game_Main();

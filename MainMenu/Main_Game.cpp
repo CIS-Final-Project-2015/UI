@@ -4,29 +4,19 @@
 #include "AnimatedSprite.hpp"
 #include "Main_Game.hpp"
 
-int gridx = 10;
-int gridy = 405;
-int posx = 0;
-int posy = 0;
-int status = 1;
-enum direction { Down, Left, Right, Up};
-sf::Vector2i source(1, Down);
-sf::Texture pPlayer;
-
-int sourcex = 32, sourceY = Down;
-
-void Game_Main()
+int Game_Main()
 {
-    int b = 1;
+    enum direction {Down, Left, Right, Up};
     sf::Vector2i source(1, Down);
     int invmenu = 0;
-    // create the window
-    sf::RenderWindow Window(sf::VideoMode(600, 600), "My window");
 
+    sf::RenderWindow Window(sf::VideoMode(600, 600), "My window");
     Window.setFramerateLimit(401);
 
+    sf::Texture pPlayer;
     if (!pPlayer.loadFromFile("player.png")){
         std::cout << "error" << std::endl;
+        return 1;
     }
     sf::Sprite player(pPlayer);
     player.setPosition(0,0);
@@ -178,7 +168,9 @@ void Game_Main()
             }
         }
  //       if (sprite.getGlobalBounds().intersects(sward.getGlobalBounds()))
- //       {
+//        {
+//            int gridx = 10;
+//            int gridy = 405;
  //           sward.setPosition(gridx,gridy);
  //           gridx = gridx + 60;
  //           if (gridx == 430)
@@ -187,6 +179,7 @@ void Game_Main()
  //               gridy = gridy + 60;
  //           }
  //       }
+
         Window.draw(world);
         Window.draw(player);
         Window.draw(inventorySprite2);
@@ -194,4 +187,5 @@ void Game_Main()
         Window.display();
         Window.clear();
     }
+    return 0;
 }
