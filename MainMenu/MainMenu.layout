@@ -13,13 +13,13 @@
 	<File name="Animation.hpp" open="1" top="0" tabpos="2">
 		<Cursor position="1582" topLine="0" />
 	</File>
-	<File name="Main_Game.cpp" open="1" top="0" tabpos="7">
-		<Cursor position="2238" topLine="23" />
+	<File name="Main_Game.cpp" open="1" top="1" tabpos="7">
+		<Cursor position="432" topLine="194" />
 	</File>
 	<File name="Main_Game.hpp" open="1" top="0" tabpos="6">
 		<Cursor position="15" topLine="0" />
 	</File>
-	<File name="main.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="2643" topLine="79" />
+	<File name="main.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="2643" topLine="65" />
 	</File>
 </CodeBlocks_layout_file>
