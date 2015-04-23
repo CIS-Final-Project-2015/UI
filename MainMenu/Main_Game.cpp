@@ -4,53 +4,42 @@
 #include "AnimatedSprite.hpp"
 #include "Main_Game.hpp"
 
-int gridx = 10;
-int gridy = 405;
-int posx = 0;
-int posy = 0;
-int status = 1;
-enum direction { Down, Left, Right, Up};
-sf::Vector2i source(1, Down);
-sf::Texture pPlayer;
-
-int sourcex = 32, sourceY = Down;
-
-void Game_Main()
+int Game_Main()
 {
-    int b = 1;
+    enum direction {Down, Left, Right, Up};
     sf::Vector2i source(1, Down);
     int invmenu = 0;
-    int slide = 400;
-    int slide2 = 630;
-    // create the window
+    int player_x = 0;
+    int player_y = 0;
+    int stopper = 100;
+
+
     sf::RenderWindow Window(sf::VideoMode(600, 600), "My window");
+    Window.setFramerateLimit(401);
 
-    Window.setFramerateLimit(600);
+    sf::Texture pPlayer;
+    if (!pPlayer.loadFromFile("player.png")){
+        std::cout << "error" << std::endl;
+        return 1;
+    }
+    sf::Sprite player(pPlayer);
+    player.setPosition(34,34);
+    player.setTextureRect(sf::IntRect(source.x *32, source.y * 32, 32, 32));
 
-    if (!pPlayer.loadFromFile("snfer.png"))
-    std::cout << "error" << std::endl;
     sf::Texture myWorld;
     myWorld.loadFromFile("world.jpg");
-    sf::Sprite mySprite3(myWorld);
-    mySprite3.setPosition(0,0);sf::Texture myTexture;
-    sf::Texture myTexture2;
-    sf::Texture warrior;
+    sf::Sprite world(myWorld);
+    world.setPosition(0,0);
 
-    myTexture.loadFromFile("wood.jpg");
-    myTexture2.loadFromFile("wood2.jpg");
-    sf::Sprite sprite(pPlayer);
-
-    sprite.setPosition(0,0);
-    sf::Sprite mySprite(myTexture);
-    sf::Sprite mySprite2(myTexture2);
-    mySprite.setPosition(1, 400);
-    mySprite2.setPosition(430,0);
-    mySprite2.scale(4,4);
-
-    sf::Texture sword;
-    sword.loadFromFile("ongar.jpg");
-    sf::Sprite sward(sword);
-    sward.setPosition(120,30);
+    sf::Texture inventory1;
+    sf::Texture inventory2;
+    inventory1.loadFromFile("wood.jpg");
+    inventory2.loadFromFile("wood2.jpg");
+    sf::Sprite bottomPanel(inventory1);
+    sf::Sprite sidePanel(inventory2);
+    bottomPanel.setPosition(1, 400);
+    sidePanel.setPosition(430,0);
+    sidePanel.scale(4,4);
 
     sf::Event event;
     while(Window.isOpen())
@@ -67,144 +56,60 @@ void Game_Main()
                 {
                     if (invmenu == 0)
                     {
-                        while (slide !=  600)
-                        {
-                            slide = slide + 1;
-                            mySprite.setPosition(1, slide);
-                        }
-                        while (slide2 !=  800)
-                        {
-                            slide2++;
-                            mySprite2.setPosition(slide2, 0);
-                        }
+                        sidePanel.setPosition(8000, 0);
+                        bottomPanel.setPosition(1, 6000);
                         invmenu = 1;
-                        Window.draw(mySprite3);
-                        Window.draw(sprite);
-                        Window.draw(mySprite2);
-                        Window.draw(mySprite);
-                        Window.display();
-                        Window.clear();
                     }
                     else if (invmenu == 1)
                     {
-                        while (slide !=  400)
-                        {
-                            slide = slide- 1;
-                            mySprite.setPosition(1, slide);
-                        }
-                        while (slide2 !=  430)
-                        {
-                            slide2--;
-                            mySprite2.setPosition(slide2, 0);
-                        }
+                        bottomPanel.setPosition(1, 400);
+                        sidePanel.setPosition(430, 0);
                         invmenu = 0;
                     }
-                    Window.draw(mySprite3);
-                    Window.draw(sprite);
-                    Window.draw(mySprite2);
-                    //Window.draw(mySprite);
-                    Window.display();
-                    Window.clear();
                 }
             }
         }
         if(event.type == sf::Event::KeyPressed)
         {
+
             if (event.key.code == sf::Keyboard::Left)
             {
                 source.y = Left;
-                int stopper = 0;
-                while (stopper < 100)
-                {
-                    sprite.move(-1,0);
-                    if (stopper % 20 == 0)
-                        source.x++;
-                    if(source.x * 32 >= pPlayer.getSize().x)
-                        source.x = 0;
-
-                    sprite.setTextureRect(sf::IntRect(source.x *32, source.y * 32, 32, 32));
-                    Window.draw(mySprite3);
-                    Window.draw(sprite);
-                    Window.draw(mySprite2);
-                    Window.draw(mySprite);
-                    Window.draw(sward);
-                    Window.display();
-                    Window.clear();
-                    stopper++;
-                }
+                stopper = 0;
+                player_x = -1;
+                player_y = 0;
             }
+
             if (event.key.code == sf::Keyboard::Right)
             {
                 source.y = Right;
-                int stopper = 0;
-                while (stopper < 100)
-                {
-                    sprite.move(1,0);
-                    if (stopper % 20 == 0)
-                        source.x++;
-                    if(source.x * 32 >= pPlayer.getSize().x)
-                        source.x = 0;
-
-                    sprite.setTextureRect(sf::IntRect(source.x *32, source.y * 32, 32, 32));
-                    Window.draw(mySprite3);
-                    Window.draw(sprite);
-                    Window.draw(mySprite2);
-                    Window.draw(mySprite);
-                    Window.draw(sward);
-                    Window.display();
-                    Window.clear();
-                    stopper++;
-                }
+                stopper = 0;
+                player_x = 1;
+                player_y = 0;
             }
+
             if (event.key.code == sf::Keyboard::Up)
             {
                 source.y = Up;
-                int stopper = 0;
-                while (stopper < 100)
-                {
-                    sprite.move(0,-1);
-                    if (stopper % 20 == 0)
-                        source.x++;
-                    if(source.x * 32 >= pPlayer.getSize().x)
-                        source.x = 0;
-
-                    sprite.setTextureRect(sf::IntRect(source.x *32, source.y * 32, 32, 32));
-                    Window.draw(mySprite3);
-                    Window.draw(sprite);
-                    Window.draw(mySprite2);
-                    Window.draw(mySprite);
-                    Window.draw(sward);
-                    Window.display();
-                    Window.clear();
-                    stopper++;
-                }
+                stopper = 0;
+                player_x = 0;
+                player_y = -1;
             }
+
             if (event.key.code == sf::Keyboard::Down)
             {
                 source.y = Down;
-                int stopper = 0;
-                while (stopper < 100)
-                {
-                    sprite.move(0,1);
-                    if (stopper % 20 == 0)
-                        source.x++;
-                    if(source.x * 32 >= pPlayer.getSize().x)
-                        source.x = 0;
-
-                    sprite.setTextureRect(sf::IntRect(source.x *32, source.y * 32, 32, 32));
-                    Window.draw(mySprite3);
-                    Window.draw(sprite);
-                    Window.draw(mySprite2);
-                    Window.draw(mySprite);
-                    Window.draw(sward);
-                    Window.display();
-                    Window.clear();
-                    stopper++;
-                }
+                stopper = 0;
+                player_x = 0;
+                player_y = 1;
             }
         }
+// Collision detection!
+/*
         if (sprite.getGlobalBounds().intersects(sward.getGlobalBounds()))
         {
+            int gridx = 10;
+            int gridy = 405;
             sward.setPosition(gridx,gridy);
             gridx = gridx + 60;
             if (gridx == 430)
@@ -212,16 +117,35 @@ void Game_Main()
                 gridx = 10;
                 gridy = gridy + 60;
             }
-        }
-        Window.draw(mySprite3);
-        Window.draw(sprite);
-        Window.draw(mySprite2);
-        Window.draw(mySprite);
-        if (invmenu == 0)
+        }*/
+
+        while (stopper < 100)
         {
-            Window.draw(sward);
+            player.move(player_x, player_y);
+            if (stopper % 20 == 0)
+            {
+                source.x++;
+            }
+            if (source.x * 32 >= pPlayer.getSize().x)
+            {
+                source.x = 0;
+            }
+            player.setTextureRect(sf::IntRect(source.x *32, source.y * 32, 32, 32));
+            Window.draw(world);
+            Window.draw(player);
+            Window.draw(sidePanel);
+            Window.draw(bottomPanel);
+            Window.display();
+            Window.clear();
+            stopper++;
         }
+
+        Window.draw(world);
+        Window.draw(player);
+        Window.draw(sidePanel);
+        Window.draw(bottomPanel);
         Window.display();
         Window.clear();
     }
+    return 0;
 }
