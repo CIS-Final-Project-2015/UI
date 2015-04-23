@@ -26,7 +26,7 @@ int main()
     select.setSize(sf::Vector2f(200, 50));
     select.setFillColor(sf::Color(150, 50, 200));
 
-    if (!font.loadFromFile("/usr/share/fonts/truetype/dustin/progenisis.ttf"))
+    if (!font.loadFromFile("dlxfont.ttf"))
     {
         return 1;
     }
@@ -90,7 +90,7 @@ void Settings_Menu()
     sf::Font font;
     sf::Text text("NO SETTINGS ENJOY OUR GAME THE WAY WE MADE IT!!!", font, 30);
     text.setPosition(0,300);
-    if (!font.loadFromFile("/usr/share/fonts/truetype/dustin/progenisis.ttf"))
+    if (!font.loadFromFile("dlxfont.ttf"))
     {
         window.close();
         std::cout << "ERROR loading game font" << std::endl;

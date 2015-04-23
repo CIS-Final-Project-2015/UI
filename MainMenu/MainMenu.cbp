@@ -40,10 +40,10 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 			<Add option="-DSFML_STATIC" />
-			<Add directory="../../../../SFML/SFML-2.2/include" />
+			<Add directory="../../../SFML-2.2/include" />
 		</Compiler>
 		<Linker>
-			<Add directory="../../../../SFML/SFML-2.2/lib" />
+			<Add directory="../../../SFML-2.2/lib" />
 		</Linker>
 		<Unit filename="AnimatedSprite.cpp" />
 		<Unit filename="AnimatedSprite.hpp" />
