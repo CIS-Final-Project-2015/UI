@@ -4,6 +4,8 @@
 #include "AnimatedSprite.hpp"
 #include "Main_Game.hpp"
 
+using namespace std;
+
 int Game_Main()
 {
     enum direction {Down, Left, Right, Up};
@@ -39,7 +41,16 @@ int Game_Main()
     sf::Sprite sidePanel(inventory2);
     bottomPanel.setPosition(1, 400);
     sidePanel.setPosition(430,0);
-    sidePanel.scale(4,4);
+    sidePanel.scale(10,3.35);
+
+    sf::Font font;
+    if (!font.loadFromFile("dlxfont.ttf"))
+    {
+        return 1;
+    }
+    sf::Text itemText("Sword", font, 10);
+    itemText.setPosition(sidePanel.getPosition());
+
 
     sf::Event event;
     while(Window.isOpen())
@@ -134,7 +145,8 @@ int Game_Main()
             Window.draw(world);
             Window.draw(player);
             Window.draw(sidePanel);
-            Window.draw(bottomPanel);
+            //Window.draw(bottomPanel);
+            Window.draw(itemText);
             Window.display();
             Window.clear();
             stopper++;
@@ -144,6 +156,7 @@ int Game_Main()
         Window.draw(player);
         Window.draw(sidePanel);
         Window.draw(bottomPanel);
+        Window.draw(itemText);
         Window.display();
         Window.clear();
     }
