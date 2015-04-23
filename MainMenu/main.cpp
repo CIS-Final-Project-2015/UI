@@ -8,22 +8,23 @@ void Settings_Menu();
 int main()
 {
     unsigned int pos = 0;
+    int sizes[] = {235, 300, 250, 150};
     sf::RenderWindow window(sf::VideoMode(600,600), "SFML Works");
     window.setFramerateLimit(60);
     sf::Font font;
     sf::Text newGame("New Game", font, 30);
-    sf::Text loadGame("Load Game", font, 30);
+    sf::Text loadGame("Load Game", font,30);
     sf::Text settings("Settings", font, 30);
     sf::Text quit("Quit", font, 30);
 
-    newGame.setPosition(250, 150);
-    loadGame.setPosition(250, 250);
-    settings.setPosition(250, 350);
-    quit.setPosition(250, 450);
+    newGame.setPosition(200, 150);
+    loadGame.setPosition(200, 250);
+    settings.setPosition(200, 350);
+    quit.setPosition(200, 450);
 
     sf::RectangleShape select(sf::Vector2f(300, 150));
     select.setPosition(200, 150);
-    select.setSize(sf::Vector2f(200, 50));
+    select.setSize(sf::Vector2f(235, 50));
     select.setFillColor(sf::Color(150, 50, 200));
 
     if (!font.loadFromFile("dlxfont.ttf"))
@@ -44,12 +45,14 @@ int main()
         {
             pos = abs((pos - 1) % 4);
             select.setPosition(200, (pos * 100 + 150));
+            select.setSize(sf::Vector2f(sizes[pos], 50));
             usleep(100000);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
         {
             pos = abs((pos + 1) % 4);
             select.setPosition(200, (pos * 100 + 150));
+            select.setSize(sf::Vector2f(sizes[pos], 50));
             usleep(100000);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
