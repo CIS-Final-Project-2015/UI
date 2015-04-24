@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include "AnimatedSprite.hpp"
 #include "Main_Game.hpp"
+#include <vector>
 
 int Game_Main()
 {
@@ -13,6 +14,7 @@ int Game_Main()
     int player_y = 0;
     int stopper = 100;
 
+    std::vector<sf::Text> inventory;
 
     sf::RenderWindow Window(sf::VideoMode(600, 600), "My window");
     Window.setFramerateLimit(401);
@@ -22,6 +24,9 @@ int Game_Main()
         std::cout << "error" << std::endl;
         return 1;
     }
+
+
+
     sf::Sprite player(pPlayer);
     player.setPosition(34,34);
     player.setTextureRect(sf::IntRect(source.x *32, source.y * 32, 32, 32));
@@ -40,6 +45,15 @@ int Game_Main()
     bottomPanel.setPosition(1, 400);
     sidePanel.setPosition(430,0);
     sidePanel.scale(4,4);
+
+    sf::Font font;
+    if (!font.loadFromFile("dlxfont.ttf"))
+    {
+        return 1;
+    }
+    sf::Text itemText("Sword", font, 10);
+    itemText.setPosition(sidePanel.getPosition());
+    inventory.push_back(itemText);
 
     sf::Event event;
     while(Window.isOpen())
@@ -135,6 +149,10 @@ int Game_Main()
             Window.draw(player);
             Window.draw(sidePanel);
             Window.draw(bottomPanel);
+            for (int i = 0; i < inventory.size(); i++)
+            {
+                Window.draw(inventory[i]);
+            }
             Window.display();
             Window.clear();
             stopper++;
