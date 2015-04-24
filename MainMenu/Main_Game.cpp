@@ -56,14 +56,6 @@ int Game_Main()
     sf::Text itemText("Sword", font, 10);
     itemText.setPosition(sidePanel.getPosition());
 
-
-    sf::Font font;
-    if (!font.loadFromFile("dlxfont.ttf"))
-    {
-        return 1;
-    }
-    sf::Text itemText("Sword", font, 10);
-    itemText.setPosition(sidePanel.getPosition());
     inventory.push_back(itemText);
 
     sf::Event event;
