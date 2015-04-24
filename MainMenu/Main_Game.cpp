@@ -145,7 +145,7 @@ int Game_Main()
             Window.draw(world);
             Window.draw(player);
             Window.draw(sidePanel);
-            //Window.draw(bottomPanel);
+            Window.draw(bottomPanel);
             Window.draw(itemText);
             Window.display();
             Window.clear();

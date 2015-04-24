@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="AnimatedSprite.cpp" open="0" top="0" tabpos="5">
-		<Cursor position="1311" topLine="6" />
+	<File name="Main_Game.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="1928" topLine="0" />
 	</File>
+<<<<<<< HEAD
 	<File name="AnimatedSprite.hpp" open="0" top="0" tabpos="4">
 		<Cursor position="1725" topLine="20" />
 	</File>
@@ -21,5 +22,9 @@
 	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="2">
 		<Cursor position="448" topLine="60" />
+=======
+	<File name="main.cpp" open="1" top="1" tabpos="2">
+		<Cursor position="1619" topLine="33" />
+>>>>>>> 51e52ded110d950af0dcafb3bd4104551b74f5b5
 	</File>
 </CodeBlocks_layout_file>
