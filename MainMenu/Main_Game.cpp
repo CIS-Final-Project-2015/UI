@@ -4,47 +4,49 @@
 #include "AnimatedSprite.hpp"
 #include "Main_Game.hpp"
 #include <vector>
+#include <string>
 
 using namespace std;
+
+string getInventory();
 
 int Game_Main()
 {
     enum direction {Down, Left, Right, Up};
+
     sf::Vector2i source(1, Down);
+    vector<sf::Text> inventory;
+
     int invmenu = 0;
     int player_x = 0;
     int player_y = 0;
     int stopper = 100;
 
-    std::vector<sf::Text> inventory;
-
     sf::RenderWindow Window(sf::VideoMode(600, 600), "My window");
     Window.setFramerateLimit(401);
 
     sf::Texture pPlayer;
-    if (!pPlayer.loadFromFile("player.png")){
-        std::cout << "error" << std::endl;
-        return 1;
-    }
+    sf::Texture myWorld;
+    sf::Texture texture_bottomPanel;
+    sf::Texture texture_sidePanel;
 
-
+    pPlayer.loadFromFile("player.png");
+    myWorld.loadFromFile("world.jpg");
+    texture_bottomPanel.loadFromFile("wood.jpg");
+    texture_sidePanel.loadFromFile("wood2.jpg");
 
     sf::Sprite player(pPlayer);
+    sf::Sprite world(myWorld);
+    sf::Sprite bottomPanel(texture_bottomPanel);
+    sf::Sprite sidePanel(texture_sidePanel);
+
     player.setPosition(34,34);
     player.setTextureRect(sf::IntRect(source.x *32, source.y * 32, 32, 32));
 
-    sf::Texture myWorld;
-    myWorld.loadFromFile("world.jpg");
-    sf::Sprite world(myWorld);
     world.setPosition(0,0);
 
-    sf::Texture inventory1;
-    sf::Texture inventory2;
-    inventory1.loadFromFile("wood.jpg");
-    inventory2.loadFromFile("wood2.jpg");
-    sf::Sprite bottomPanel(inventory1);
-    sf::Sprite sidePanel(inventory2);
     bottomPanel.setPosition(1, 400);
+
     sidePanel.setPosition(430,0);
     sidePanel.scale(10,3.35);
 
@@ -53,10 +55,15 @@ int Game_Main()
     {
         return 1;
     }
-    sf::Text itemText("Sword", font, 10);
+    sf::Text itemText(getInventory(), font, 10);
     itemText.setPosition(sidePanel.getPosition());
-
     inventory.push_back(itemText);
+
+    // Jason's stuff down here
+
+    string inventory_string = getInventory();
+
+    // End of Jason's stuff
 
     sf::Event event;
     while(Window.isOpen())
@@ -165,9 +172,15 @@ int Game_Main()
         Window.draw(player);
         Window.draw(sidePanel);
         Window.draw(bottomPanel);
-        Window.draw(itemText);
         Window.display();
         Window.clear();
     }
     return 0;
+}
+
+string getInventory()
+{
+    string toReturn = "Elysian_Spirit_Shield RUne_Plate_Legs Rune_Plate_Body Rune_Plate_Helmet Dragon_Dagger Dragon_Long_Sword Dragon_Scimitar";
+
+    return toReturn;
 }
