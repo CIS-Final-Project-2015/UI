@@ -8,7 +8,10 @@ void Settings_Menu();
 int main()
 {
     unsigned int pos = 0;
-    int sizes[] = {235, 300, 250, 150};
+    int winSize = 600;
+    int sizes[] = {250, 275, 250, 125};
+    int positions[] = {(winSize / 2 - sizes[0] / 2), (winSize / 2 - sizes[1] / 2), (winSize / 2 - sizes[2] / 2), (winSize / 2 - sizes[3] / 2)};
+
     sf::RenderWindow window(sf::VideoMode(600,600), "SFML Works");
     window.setFramerateLimit(60);
     sf::Font font;
@@ -17,14 +20,15 @@ int main()
     sf::Text settings("Settings", font, 30);
     sf::Text quit("Quit", font, 30);
 
-    newGame.setPosition(200, 150);
-    loadGame.setPosition(200, 250);
-    settings.setPosition(200, 350);
-    quit.setPosition(200, 450);
+    //centering the options
+    newGame.setPosition(positions[0], 150);
+    loadGame.setPosition(positions[1], 250);
+    settings.setPosition(positions[2], 350);
+    quit.setPosition(positions[3], 450);
 
     sf::RectangleShape select(sf::Vector2f(300, 150));
-    select.setPosition(200, 150);
-    select.setSize(sf::Vector2f(235, 50));
+    select.setPosition((positions[0] - 10), 140);
+    select.setSize(sf::Vector2f(250, 50));
     select.setFillColor(sf::Color(150, 50, 200));
 
     if (!font.loadFromFile("dlxfont.ttf"))
@@ -41,19 +45,20 @@ int main()
                 window.close();
             }
         }
+        //highlights the selected option
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
         {
             pos = abs((pos - 1) % 4);
-            select.setPosition(200, (pos * 100 + 150));
+            select.setPosition((positions[pos] - 10), (pos * 100 + 140));
             select.setSize(sf::Vector2f(sizes[pos], 50));
-            usleep(100000);
+            usleep(150000);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
         {
             pos = abs((pos + 1) % 4);
-            select.setPosition(200, (pos * 100 + 150));
+            select.setPosition((positions[pos] - 10), (pos * 100 + 140));
             select.setSize(sf::Vector2f(sizes[pos], 50));
-            usleep(100000);
+            usleep(150000);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
         {
@@ -68,6 +73,7 @@ int main()
                     std::cout << "Load Game";
                     break;
                 case 2:
+                    window.close();
                     Settings_Menu();
                     break;
                 case 3:
@@ -91,8 +97,10 @@ void Settings_Menu()
 {
     sf::RenderWindow window(sf::VideoMode(600,600), "Settings");
     sf::Font font;
-    sf::Text text("NO SETTINGS ENJOY OUR GAME THE WAY WE MADE IT!!!", font, 30);
-    text.setPosition(0,300);
+    sf::Text text("   NO SETTINGS!!!", font, 30);
+    sf::Text text2("   ENJOY OUR GAME \nTHE WAY WE MADE IT!!!", font, 30);
+    text.setPosition(0,225);
+    text2.setPosition(0,275);
     if (!font.loadFromFile("dlxfont.ttf"))
     {
         window.close();
@@ -110,6 +118,7 @@ void Settings_Menu()
         }
         window.clear();
         window.draw(text);
+        window.draw(text2);
         window.display();
     }
 }
