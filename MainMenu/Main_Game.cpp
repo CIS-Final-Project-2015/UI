@@ -17,7 +17,7 @@ int Game_Main()
     sf::Vector2i source(1, Down);
     vector<sf::Text> inventory;
 
-    int invmenu = 0;
+    bool invmenu = 0;
     int player_x = 0;
     int player_y = 0;
     int stopper = 100;
@@ -47,23 +47,18 @@ int Game_Main()
 
     bottomPanel.setPosition(1, 400);
 
-    sidePanel.setPosition(430,0);
-    sidePanel.scale(10,3.35);
+    sidePanel.setPosition(330,0);
+    sidePanel.scale(3,10);
 
     sf::Font font;
     if (!font.loadFromFile("dlxfont.ttf"))
     {
         return 1;
     }
-    sf::Text itemText(getInventory(), font, 10);
+
+    sf::Text itemText(getInventory(), font, 8);
     itemText.setPosition(sidePanel.getPosition());
     inventory.push_back(itemText);
-
-    // Jason's stuff down here
-
-    string inventory_string = getInventory();
-
-    // End of Jason's stuff
 
     sf::Event event;
     while(Window.isOpen())
@@ -78,54 +73,55 @@ int Game_Main()
             {
                 if (event.key.code == sf::Keyboard::I)
                 {
+                    invmenu = !invmenu;
+                }
+                if (event.key.code == sf::Keyboard::Left)
+                {
                     if (invmenu == 0)
                     {
-                        sidePanel.setPosition(8000, 0);
-                        bottomPanel.setPosition(1, 6000);
-                        invmenu = 1;
+                        source.y = Left;
+                        stopper = 0;
+                        player_x = -1;
+                        player_y = 0;
                     }
-                    else if (invmenu == 1)
+                    else
                     {
-                        bottomPanel.setPosition(1, 400);
-                        sidePanel.setPosition(430, 0);
-                        invmenu = 0;
+                        cout << "Success";
                     }
                 }
-            }
-        }
-        if(event.type == sf::Event::KeyPressed)
-        {
 
-            if (event.key.code == sf::Keyboard::Left)
-            {
-                source.y = Left;
-                stopper = 0;
-                player_x = -1;
-                player_y = 0;
-            }
+                if (event.key.code == sf::Keyboard::Right)
+                {
+                    if (invmenu == 0)
+                    {
+                        source.y = Right;
+                        stopper = 0;
+                        player_x = 1;
+                        player_y = 0;
+                    }
+                }
 
-            if (event.key.code == sf::Keyboard::Right)
-            {
-                source.y = Right;
-                stopper = 0;
-                player_x = 1;
-                player_y = 0;
-            }
+                if (event.key.code == sf::Keyboard::Up)
+                {
+                    if (invmenu == 0)
+                    {
+                        source.y = Up;
+                        stopper = 0;
+                        player_x = 0;
+                        player_y = -1;
+                    }
+                }
 
-            if (event.key.code == sf::Keyboard::Up)
-            {
-                source.y = Up;
-                stopper = 0;
-                player_x = 0;
-                player_y = -1;
-            }
-
-            if (event.key.code == sf::Keyboard::Down)
-            {
-                source.y = Down;
-                stopper = 0;
-                player_x = 0;
-                player_y = 1;
+                if (event.key.code == sf::Keyboard::Down)
+                {
+                    if (invmenu == 0)
+                    {
+                        source.y = Down;
+                        stopper = 0;
+                        player_x = 0;
+                        player_y = 1;
+                    }
+                }
             }
         }
 // Collision detection!
@@ -157,21 +153,18 @@ int Game_Main()
             player.setTextureRect(sf::IntRect(source.x *32, source.y * 32, 32, 32));
             Window.draw(world);
             Window.draw(player);
-            Window.draw(sidePanel);
-            Window.draw(bottomPanel);
-            for (int i = 0; i < inventory.size(); i++)
-            {
-                Window.draw(inventory[i]);
-            }
             Window.display();
             Window.clear();
             stopper++;
         }
-
         Window.draw(world);
         Window.draw(player);
-        Window.draw(sidePanel);
-        Window.draw(bottomPanel);
+        if(invmenu == 1)
+        {
+            Window.draw(sidePanel);
+            Window.draw(bottomPanel);
+            Window.draw(itemText);
+        }
         Window.display();
         Window.clear();
     }
@@ -180,7 +173,16 @@ int Game_Main()
 
 string getInventory()
 {
-    string toReturn = "Elysian_Spirit_Shield RUne_Plate_Legs Rune_Plate_Body Rune_Plate_Helmet Dragon_Dagger Dragon_Long_Sword Dragon_Scimitar";
+    //Weapons: item_name damge_range weight
+    //armor: item_name dexBonus armrPen spellRes
+    //consumables: item_name weight
+    //other: item_name weight
+    string someString = "";
+    string toReturn = "Sword:\n\t12dmg\n\t9lbs\n\nChest_Plate:\n\tdex:2\n\tarmor_rating: 3\n\tspell_resistance:4\n";
+    /*for (int i = 0; i < toReturn.size(); i++)
+    {
+        if(toReturn[i] == " ")
 
+    }*/
     return toReturn;
 }
