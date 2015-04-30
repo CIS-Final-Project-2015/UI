@@ -32,7 +32,7 @@ int Game_Main()
 
     pPlayer.loadFromFile("player.png");
     myWorld.loadFromFile("world.jpg");
-    texture_bottomPanel.loadFromFile("wood.jpg");
+    texture_bottomPanel.loadFromFile("wood_bottom.png");
     texture_sidePanel.loadFromFile("wood2.jpg");
 
     sf::Sprite player(pPlayer);
@@ -46,6 +46,7 @@ int Game_Main()
     world.setPosition(0,0);
 
     bottomPanel.setPosition(1, 400);
+    bottomPanel.setScale(10,10);
 
     sidePanel.setPosition(330,0);
     sidePanel.scale(3,10);
@@ -59,6 +60,11 @@ int Game_Main()
     sf::Text itemText(getInventory(), font, 8);
     itemText.setPosition(sidePanel.getPosition());
     inventory.push_back(itemText);
+
+    sf::Texture texture_pikachu;
+    texture_pikachu.loadFromFile("pikachu_sprite.png");
+    sf::Sprite pikachu(texture_pikachu);
+    pikachu.setPosition(bottomPanel.getPosition());
 
     sf::Event event;
     while(Window.isOpen())
@@ -164,6 +170,7 @@ int Game_Main()
             Window.draw(sidePanel);
             Window.draw(bottomPanel);
             Window.draw(itemText);
+            Window.draw(pikachu);
         }
         Window.display();
         Window.clear();
