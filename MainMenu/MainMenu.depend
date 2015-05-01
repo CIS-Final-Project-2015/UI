@@ -1142,3 +1142,44 @@
 	<string>
 	<vector>
 
+1430378905 source:/home/jnguyen/Dropbox/RPG/UI/MainMenu/AnimatedSprite.cpp
+	<SFML/Graphics/RenderTarget.hpp>
+	<SFML/System/Time.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/System/Vector2.hpp>
+	"Animation.hpp"
+
+1430378905 /home/jnguyen/Dropbox/RPG/UI/MainMenu/Animation.hpp
+	<vector>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/Texture.hpp>
+
+1430378905 source:/home/jnguyen/Dropbox/RPG/UI/MainMenu/Animation.cpp
+	"Animation.hpp"
+
+1430378905 source:/home/jnguyen/Dropbox/RPG/UI/MainMenu/main.cpp
+	<SFML/Graphics.hpp>
+	<unistd.h>
+	<iostream>
+	"Main_Game.hpp"
+
+1430378905 /home/jnguyen/Dropbox/RPG/UI/MainMenu/Main_Game.hpp
+
+1430464211 source:/home/jnguyen/Dropbox/RPG/UI/MainMenu/Main_Game.cpp
+	<SFML/Graphics.hpp>
+	"AnimatedSprite.hpp"
+	"Main_Game.hpp"
+	<iostream>
+	<unistd.h>
+	<vector>
+	<string>
+
+1430378905 /home/jnguyen/Dropbox/RPG/UI/MainMenu/AnimatedSprite.hpp
+	<SFML/Graphics/RenderTarget.hpp>
+	<SFML/System/Time.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/System/Vector2.hpp>
+	"Animation.hpp"
+

@@ -1,8 +1,8 @@
 #include <SFML/Graphics.hpp>
-#include <iostream>
-#include <unistd.h>
 #include "AnimatedSprite.hpp"
 #include "Main_Game.hpp"
+#include <iostream>
+#include <unistd.h>
 #include <vector>
 #include <string>
 
@@ -16,6 +16,19 @@ int Game_Main()
 
     sf::Vector2i source(1, Down);
     vector<sf::Text> inventory;
+
+    // How to loop through a vector...
+    /*
+    vector<int> test;
+    test.push_back(1);
+    test.push_back(2);
+    test.push_back(3);
+    test.push_back(4);
+    for(vector<int>::iterator it = test.begin();it != test.end(); ++it)
+    {
+        cout << *it;
+    }
+    */
 
     bool invmenu = 0;
     int player_x = 0;
@@ -61,10 +74,31 @@ int Game_Main()
     itemText.setPosition(sidePanel.getPosition());
     inventory.push_back(itemText);
 
+    // Load and display Party Info
+    sf::Text party;
+
+    sf::Vector2f pan_pos = bottomPanel.getPosition();
+
     sf::Texture texture_pikachu;
     texture_pikachu.loadFromFile("pikachu_sprite.png");
     sf::Sprite pikachu(texture_pikachu);
-    pikachu.setPosition(bottomPanel.getPosition());
+    pikachu.setPosition(pan_pos.x + 25, pan_pos.y + 30);
+
+    sf::Texture texture_bulbasaur;
+    texture_bulbasaur.loadFromFile("bulbasaur_sprite.png");
+    sf::Sprite bulbasaur(texture_bulbasaur);
+    bulbasaur.setPosition(pan_pos.x + 175, pan_pos.y +30);
+
+    sf::Texture texture_squirtle;
+    texture_squirtle.loadFromFile("squirtle_sprite.png");
+    sf::Sprite squirtle(texture_squirtle);
+    squirtle.setPosition(pan_pos.x + 325, pan_pos.y+30);
+
+    sf::Texture texture_charmander;
+    texture_charmander.loadFromFile("charmander_sprite.png");
+    sf::Sprite charmander(texture_charmander);
+    charmander.setPosition(pan_pos.x + 475, pan_pos.y+30);
+
 
     sf::Event event;
     while(Window.isOpen())
@@ -95,7 +129,6 @@ int Game_Main()
                         cout << "Success";
                     }
                 }
-
                 if (event.key.code == sf::Keyboard::Right)
                 {
                     if (invmenu == 0)
@@ -106,7 +139,6 @@ int Game_Main()
                         player_y = 0;
                     }
                 }
-
                 if (event.key.code == sf::Keyboard::Up)
                 {
                     if (invmenu == 0)
@@ -117,7 +149,6 @@ int Game_Main()
                         player_y = -1;
                     }
                 }
-
                 if (event.key.code == sf::Keyboard::Down)
                 {
                     if (invmenu == 0)
@@ -130,8 +161,7 @@ int Game_Main()
                 }
             }
         }
-// Collision detection!
-/*
+/* Collision detection!
         if (sprite.getGlobalBounds().intersects(sward.getGlobalBounds()))
         {
             int gridx = 10;
@@ -144,7 +174,6 @@ int Game_Main()
                 gridy = gridy + 60;
             }
         }*/
-
         while (stopper < 100)
         {
             player.move(player_x, player_y);
@@ -171,6 +200,9 @@ int Game_Main()
             Window.draw(bottomPanel);
             Window.draw(itemText);
             Window.draw(pikachu);
+            Window.draw(bulbasaur);
+            Window.draw(charmander);
+            Window.draw(squirtle);
         }
         Window.display();
         Window.clear();
@@ -178,14 +210,26 @@ int Game_Main()
     return 0;
 }
 
+// Testing variable for getInventory
+bool once = false;
+
 string getInventory()
 {
     //Weapons: item_name damge_range weight
     //armor: item_name dexBonus armrPen spellRes
     //consumables: item_name weight
     //other: item_name weight
-    string someString = "";
-    string toReturn = "Sword:\n\t12dmg\n\t9lbs\n\nChest_Plate:\n\tdex:2\n\tarmor_rating: 3\n\tspell_resistance:4\n";
+    //string someString = "";
+    string toReturn = "";
+    if(once == false)
+    {
+    toReturn = "Sword:\n\t12dmg\n\t9lbs\n\nChest_Plate:\n\tdex:2\n\tarmor_rating: 3\n\tspell_resistance:4\n";
+    once = true;
+    }
+    else
+    {
+    toReturn = "Jason Nguyen was here";
+    }
     /*for (int i = 0; i < toReturn.size(); i++)
     {
         if(toReturn[i] == " ")
