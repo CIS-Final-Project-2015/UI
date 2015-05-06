@@ -15,9 +15,9 @@
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
-					<Add library="../../../../Documents/SFML-2.2/lib/libsfml-graphics.so.2.2.0" />
-					<Add library="../../../../Documents/SFML-2.2/lib/libsfml-system.so.2.2.0" />
-					<Add library="../../../../Documents/SFML-2.2/lib/libsfml-window.so.2.2.0" />
+					<Add library="../../../../../Documents/SFML-2.2/lib/libsfml-graphics.so.2.2.0" />
+					<Add library="../../../../../Documents/SFML-2.2/lib/libsfml-system.so.2.2.0" />
+					<Add library="../../../../../Documents/SFML-2.2/lib/libsfml-window.so.2.2.0" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -40,10 +40,10 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 			<Add option="-DSFML_STATIC" />
-			<Add directory="../../../../SFML_STUFF/SFML-2.2/include" />
+			<Add directory="../../../../../Documents/SFML-2.2/include" />
 		</Compiler>
 		<Linker>
-			<Add directory="../../../../SFML_STUFF/SFML-2.2/lib" />
+			<Add directory="../../../../../Documents/SFML-2.2/lib" />
 		</Linker>
 		<Unit filename="AnimatedSprite.cpp" />
 		<Unit filename="AnimatedSprite.hpp" />

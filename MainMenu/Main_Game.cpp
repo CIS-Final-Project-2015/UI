@@ -10,6 +10,7 @@ using namespace std;
 
 string getInventory();
 string getPartyStats();
+string getRooms();
 
 int Game_Main()
 {
@@ -36,16 +37,7 @@ int Game_Main()
     int player_y = 0;
     int stopper = 100;
     int loc = 0;
-    vector<int> rooms;
-    string roomStr = getInventory();
-    for (int i = 0; i < sizeof(roomStr); i++)
-    {
-        if (roomStr[i] == 0 || roomStr[i] == 1)
-        {
-            rooms.push_back(roomStr[i]);
-        }
-    }
-
+    int rooms[] = {0,1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0};
     sf::RenderWindow Window(sf::VideoMode(600, 600), "My window");
     Window.setFramerateLimit(401);
 
@@ -163,7 +155,7 @@ int Game_Main()
                         stopper = 0;
                         player_x = 0;
                         player_y = -1;
-                        loc -= 1;
+                        loc -= 6;
                     }
                 }
                 if (event.key.code == sf::Keyboard::Down)
@@ -174,7 +166,7 @@ int Game_Main()
                         stopper = 0;
                         player_x = 0;
                         player_y = 1;
-                        loc += 1;
+                        loc += 6;
                     }
                 }
             }
@@ -212,9 +204,32 @@ int Game_Main()
             Window.clear();
             stopper++;
         }
-
+        if (loc < 0)
+        {
+            loc = 0;
+        }
+        if (loc > 35)
+        {
+            loc = 35;
+        }
+        if (rooms[loc] == 0)
+        {
+            //keep normal map
+            cout << "0" << endl;
+        }
+        else if (rooms[loc] == 1)
+        {
+            //draw dungeon
+            cout << "1" << endl;
+        }
+        else if (rooms[loc] == 2)
+        {
+            //draw town
+            cout << "2" << endl;
+        }
         Window.draw(world);
         Window.draw(player);
+
         //Draw inventory when toggled
         if(invmenu == 1)
         {
@@ -229,12 +244,6 @@ int Game_Main()
         }
         Window.display();
         Window.clear();
-
-        if (loc < 0)
-        {
-            loc += 36;
-        }
-        loc = loc % 36;
     }
     return 0;
 }
@@ -248,9 +257,9 @@ string getInventory()
     return "Sword:\n\t12 dmg\n\t9 lbs\n\nChest_Plate:\n\tdex: 2\n\tarmor_rating: 3\n\tspell_resistance: 4\n";
 }
 
-string rooms()
+string getRooms()
 {
-    return "1,0,0,0,0,0, 1,1,1,1,1,1, 0,0,0,0,0,0, 0,0,0,0,0,0, 0,0,0,0,0,0, 1,1,1,1,1,1";
+    return "0,0,0,0,0,0, 1,1,1,1,1,1, 0,0,0,0,0,0, 0,0,0,0,0,0, 0,0,0,0,0,0, 1,1,1,1,1,1";
 }
 
 string getPartyStats()
