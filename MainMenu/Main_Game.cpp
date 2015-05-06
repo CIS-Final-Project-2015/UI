@@ -21,6 +21,16 @@ int Game_Main()
     int player_x = 0;
     int player_y = 0;
     int stopper = 100;
+    int loc = 0;
+    vector<int> rooms;
+    string roomStr = getInventory();
+    for (int i = 0; i < sizeof(roomStr); i++)
+    {
+        if (roomStr[i] == 0 || roomStr[i] == 1)
+        {
+            rooms.push_back(roomStr[i]);
+        }
+    }
 
     sf::RenderWindow Window(sf::VideoMode(600, 600), "My window");
     Window.setFramerateLimit(401);
@@ -83,10 +93,7 @@ int Game_Main()
                         stopper = 0;
                         player_x = -1;
                         player_y = 0;
-                    }
-                    else
-                    {
-                        cout << "Success";
+                        loc -= 1;
                     }
                 }
 
@@ -98,6 +105,7 @@ int Game_Main()
                         stopper = 0;
                         player_x = 1;
                         player_y = 0;
+                        loc += 1;
                     }
                 }
 
@@ -109,6 +117,7 @@ int Game_Main()
                         stopper = 0;
                         player_x = 0;
                         player_y = -1;
+                        loc -= 1;
                     }
                 }
 
@@ -120,6 +129,7 @@ int Game_Main()
                         stopper = 0;
                         player_x = 0;
                         player_y = 1;
+                        loc += 1;
                     }
                 }
             }
@@ -139,6 +149,7 @@ int Game_Main()
             }
         }*/
 
+        //Draws the walking animation
         while (stopper < 100)
         {
             player.move(player_x, player_y);
@@ -157,8 +168,10 @@ int Game_Main()
             Window.clear();
             stopper++;
         }
+
         Window.draw(world);
         Window.draw(player);
+        //Draw inventory when toggled
         if(invmenu == 1)
         {
             Window.draw(sidePanel);
@@ -167,6 +180,12 @@ int Game_Main()
         }
         Window.display();
         Window.clear();
+
+        if (loc < 0)
+        {
+            loc += 36;
+        }
+        loc = loc % 36;
     }
     return 0;
 }
@@ -178,11 +197,11 @@ string getInventory()
     //consumables: item_name weight
     //other: item_name weight
     string someString = "";
-    string toReturn = "Sword:\n\t12dmg\n\t9lbs\n\nChest_Plate:\n\tdex:2\n\tarmor_rating: 3\n\tspell_resistance:4\n";
-    /*for (int i = 0; i < toReturn.size(); i++)
-    {
-        if(toReturn[i] == " ")
-
-    }*/
+    string toReturn = "Sword:\n\t12 dmg\n\t9 lbs\n\nChest_Plate:\n\tdex: 2\n\tarmor_rating: 3\n\tspell_resistance: 4\n";
     return toReturn;
+}
+
+string rooms()
+{
+    return "1,0,0,0,0,0, 1,1,1,1,1,1, 0,0,0,0,0,0, 0,0,0,0,0,0, 0,0,0,0,0,0, 1,1,1,1,1,1";
 }
