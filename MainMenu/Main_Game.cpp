@@ -1,14 +1,15 @@
 #include <SFML/Graphics.hpp>
-#include <iostream>
-#include <unistd.h>
 #include "AnimatedSprite.hpp"
 #include "Main_Game.hpp"
+#include <iostream>
+#include <unistd.h>
 #include <vector>
 #include <string>
 
 using namespace std;
 
 string getInventory();
+string getPartyStats();
 
 int Game_Main()
 {
@@ -16,6 +17,19 @@ int Game_Main()
 
     sf::Vector2i source(1, Down);
     vector<sf::Text> inventory;
+
+    // How to loop through a vector...
+    /*
+    vector<int> test;
+    test.push_back(1);
+    test.push_back(2);
+    test.push_back(3);
+    test.push_back(4);
+    for(vector<int>::iterator it = test.begin();it != test.end(); ++it)
+    {
+        cout << *it;
+    }
+    */
 
     bool invmenu = 0;
     int player_x = 0;
@@ -42,7 +56,7 @@ int Game_Main()
 
     pPlayer.loadFromFile("player.png");
     myWorld.loadFromFile("world.jpg");
-    texture_bottomPanel.loadFromFile("wood.jpg");
+    texture_bottomPanel.loadFromFile("wood_bottom.png");
     texture_sidePanel.loadFromFile("wood2.jpg");
 
     sf::Sprite player(pPlayer);
@@ -56,6 +70,7 @@ int Game_Main()
     world.setPosition(0,0);
 
     bottomPanel.setPosition(1, 400);
+    bottomPanel.setScale(10,10);
 
     sidePanel.setPosition(330,0);
     sidePanel.scale(3,10);
@@ -69,6 +84,39 @@ int Game_Main()
     sf::Text itemText(getInventory(), font, 8);
     itemText.setPosition(sidePanel.getPosition());
     inventory.push_back(itemText);
+
+    // Load and display Party Info
+    sf::Text party;
+
+    sf::Vector2f pan_pos = bottomPanel.getPosition();
+
+    sf::Text partyStats(getPartyStats(), font, 8);
+    partyStats.setPosition(pan_pos.x + 40, pan_pos.y + 125);
+
+    sf::Texture texture_pikachu;
+    texture_pikachu.loadFromFile("pikachu_sprite.png");
+    sf::Sprite pikachu(texture_pikachu);
+    pikachu.setPosition(pan_pos.x + 25, pan_pos.y + 30);
+    pikachu.scale(.8, .8);
+
+    sf::Texture texture_bulbasaur;
+    texture_bulbasaur.loadFromFile("bulbasaur_sprite.png");
+    sf::Sprite bulbasaur(texture_bulbasaur);
+    bulbasaur.setPosition(pan_pos.x + 175, pan_pos.y +30);
+    bulbasaur.scale(.8, .8);
+
+    sf::Texture texture_squirtle;
+    texture_squirtle.loadFromFile("squirtle_sprite.png");
+    sf::Sprite squirtle(texture_squirtle);
+    squirtle.setPosition(pan_pos.x + 325, pan_pos.y+30);
+    squirtle.scale(.8, .8);
+
+    sf::Texture texture_charmander;
+    texture_charmander.loadFromFile("charmander_sprite.png");
+    sf::Sprite charmander(texture_charmander);
+    charmander.setPosition(pan_pos.x + 475, pan_pos.y+30);
+    charmander.scale(.8, .8);
+
 
     sf::Event event;
     while(Window.isOpen())
@@ -96,7 +144,6 @@ int Game_Main()
                         loc -= 1;
                     }
                 }
-
                 if (event.key.code == sf::Keyboard::Right)
                 {
                     if (invmenu == 0)
@@ -108,7 +155,6 @@ int Game_Main()
                         loc += 1;
                     }
                 }
-
                 if (event.key.code == sf::Keyboard::Up)
                 {
                     if (invmenu == 0)
@@ -120,7 +166,6 @@ int Game_Main()
                         loc -= 1;
                     }
                 }
-
                 if (event.key.code == sf::Keyboard::Down)
                 {
                     if (invmenu == 0)
@@ -134,8 +179,7 @@ int Game_Main()
                 }
             }
         }
-// Collision detection!
-/*
+/* Collision detection!
         if (sprite.getGlobalBounds().intersects(sward.getGlobalBounds()))
         {
             int gridx = 10;
@@ -149,7 +193,7 @@ int Game_Main()
             }
         }*/
 
-        //Draws the walking animation
+        //Draws walking animation
         while (stopper < 100)
         {
             player.move(player_x, player_y);
@@ -177,6 +221,11 @@ int Game_Main()
             Window.draw(sidePanel);
             Window.draw(bottomPanel);
             Window.draw(itemText);
+            Window.draw(pikachu);
+            Window.draw(bulbasaur);
+            Window.draw(charmander);
+            Window.draw(squirtle);
+            Window.draw(partyStats);
         }
         Window.display();
         Window.clear();
@@ -196,12 +245,15 @@ string getInventory()
     //armor: item_name dexBonus armrPen spellRes
     //consumables: item_name weight
     //other: item_name weight
-    string someString = "";
-    string toReturn = "Sword:\n\t12 dmg\n\t9 lbs\n\nChest_Plate:\n\tdex: 2\n\tarmor_rating: 3\n\tspell_resistance: 4\n";
-    return toReturn;
+    return "Sword:\n\t12 dmg\n\t9 lbs\n\nChest_Plate:\n\tdex: 2\n\tarmor_rating: 3\n\tspell_resistance: 4\n";
 }
 
 string rooms()
 {
     return "1,0,0,0,0,0, 1,1,1,1,1,1, 0,0,0,0,0,0, 0,0,0,0,0,0, 0,0,0,0,0,0, 1,1,1,1,1,1";
+}
+
+string getPartyStats()
+{
+    return "health: 9\t\thealth: 10\t\thealth: 10\t\thealth: 9\nstuff: 9 \t\tstuff: 1  \t\tstuff: 1  \t\tstuff: 2";
 }
