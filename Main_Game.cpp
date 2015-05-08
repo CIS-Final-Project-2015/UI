@@ -144,7 +144,6 @@ int Game_Main()
         }
         if (map_ints[i] == 9)
         {
-            cout << "jason";
             dungeon.setPosition(tile_x, tile_y);
             map_sprites.push_back(dungeon);
         }
@@ -156,15 +155,6 @@ int Game_Main()
         }
 
     }
-
-
-
-
-
-
-
-
-
 
     // array of images
     sf::Sprite images[] = {urban, aquatic, marsh, desert, mountains, hills, forest, plains, dungeon};
