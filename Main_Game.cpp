@@ -14,32 +14,22 @@ string getRooms();
 
 int Game_Main()
 {
-    enum direction {Down, Left, Right, Up};
+    enum direction {Down, Left, Right, Up}; // down > left > right > up
 
     sf::Vector2i source(1, Down);
-    vector<sf::Text> inventory;
 
-    // How to loop through a vector...
-    /*
-    vector<int> test;
-    test.push_back(1);
-    test.push_back(2);
-    test.push_back(3);
-    test.push_back(4);
-    for(vector<int>::iterator it = test.begin();it != test.end(); ++it)
-    {
-        cout << *it;
-    }
-    */
+    vector<sf::Text> inventory; // used to crop out part of player sprite sheet
 
-    bool invmenu = 0;
+    bool invmenu = 0; // keeps track if pause is open or closed
     int player_x = 0;
     int player_y = 0;
-    int stopper = 100;
+    int stopper = 100; // used to iterate animation of character 100 pixels
     int player_loc = 0;
     int rooms[] = {0,1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0};
+
     sf::RenderWindow Window(sf::VideoMode(1000, 1000), "Pathfinder Gaem");
 
+    // get each map zone types for the 6x6 map
     ifstream file;
     file.open("world.txt");
     string info = "";
@@ -47,12 +37,8 @@ int Game_Main()
     vector<int> map_ints;
     while (getline(file, line))
     {
-        map_ints.push_back((line[0]) - 48);
+        map_ints.push_back((line[0]) - 48); // add map zone type to map_ints...
     }
-
-
-    cout << map_ints[0];
-
     file.close();
 
     Window.setFramerateLimit(401);
@@ -96,10 +82,13 @@ int Game_Main()
     sf::Sprite plains(Plains);
     sf::Sprite dungeon(Dungeon);
 
-    vector<sf::Sprite> map_sprites;
 
-    int tile_x = 0;
-    int tile_y = 0;
+    vector<sf::Sprite> map_sprites; // holds sprite images for map display
+
+    int tile_x = 0; // Keeps track temporarily 
+    int tile_y = 0; // of where to place map sprites into zones
+
+    // Place sprites in correct place on map in a vector
     for(int i = 0; i < map_ints.size(); i++)
     {
         if (map_ints[i] == 1)
@@ -147,6 +136,9 @@ int Game_Main()
             dungeon.setPosition(tile_x, tile_y);
             map_sprites.push_back(dungeon);
         }
+	
+	// iterate through each sector of the 600x600 pixel map
+	// making sure that each 100x100 image is place correctly
         tile_x += 100;
         if (tile_x == 600)
         {
@@ -156,15 +148,13 @@ int Game_Main()
 
     }
 
-    // array of images
-    sf::Sprite images[] = {urban, aquatic, marsh, desert, mountains, hills, forest, plains, dungeon};
-
+    // set beginning player to postion in the middle of the first 100x100 square
     player.setPosition(34,34);
     player.setTextureRect(sf::IntRect(source.x *32, source.y * 32, 32, 32));
 
+    // preset the positions of the pause menu.
     bottomPanel.setPosition(1, 400);
     bottomPanel.setScale(10,10);
-
     sidePanel.setPosition(330,0);
     sidePanel.scale(3,10);
 
@@ -174,6 +164,7 @@ int Game_Main()
         return 1;
     }
 
+    // set inventory text
     sf::Text itemText(getInventory(), font, 8);
     itemText.setPosition(sidePanel.getPosition());
     inventory.push_back(itemText);
@@ -340,7 +331,7 @@ int Game_Main()
 
         Window.draw(player);
 
-        //Draw inventory when toggled
+        // Draw inventory when toggled
         if(invmenu == 1)
         {
             Window.draw(sidePanel);
