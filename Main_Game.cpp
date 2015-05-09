@@ -263,19 +263,6 @@ int Game_Main()
                 }
             }
         }
-/* Collision detection!
-        if (sprite.getGlobalBounds().intersects(sward.getGlobalBounds()))
-        {
-            int gridx = 10;
-            int gridy = 405;
-            sward.setPosition(gridx,gridy);
-            gridx = gridx + 60;
-            if (gridx == 430)
-            {
-                gridx = 10;
-                gridy = gridy + 60;
-            }
-        }*/
 
         //Draws walking animation
         while (stopper < 100)
